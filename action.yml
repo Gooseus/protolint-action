@@ -14,6 +14,10 @@ inputs:
     description: "the path to where the .proto files are"
     required: false
     default: .
+  protolintVersion:
+    description: "the version of protolint to use"
+    required: false
+    default: "0.54.1"
 
 runs:
   using: "docker"
@@ -24,3 +28,5 @@ runs:
     - -config_dir_path
     - ${{ inputs.configDirectory }}
     - ${{ inputs.srcDirectory }}
+  env:
+    PROTOLINT_VERSION: ${{ inputs.protolintVersion }}
