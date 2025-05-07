@@ -1,6 +1,6 @@
-name: "Protolint"
+name: "@gooseus/protolint"
 description: "A tool to enforce Protocol Buffer style and conventions"
-author: "Plex Systems"
+author: "Gooseus"
 
 branding:
   icon: "code"
