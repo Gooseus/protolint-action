@@ -1,12 +1,17 @@
 # protolint-action
 
-![Build Status](https://github.com/plexsystems/protolint-action/workflows/build-test/badge.svg)
+![Build Status](https://github.com/gooseus/protolint-action/workflows/build-test/badge.svg)
 
 A GitHub Action for using [protolint](https://github.com/yoheimuta/protolint) in your [GitHub Action](https://github.com/features/actions) workflows.
 
 ## Required inputs
 
 - `configDirectory`: the path to where the `.protolint.yaml` configuration exists.
+
+## Optional
+
+- `srcDirectory`: the path to where the .proto files are, defaults to `.`
+- `protolintVersion`: the version of protolint to use, defaults to `v0.54.1`
 
 ## Example
 
