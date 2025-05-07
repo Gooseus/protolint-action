@@ -1,32 +1,31 @@
+# action.yml
 name: "@gooseus/protolint"
-description: "A tool to enforce Protocol Buffer style and conventions"
-author: "Gooseus"
-
-branding:
-  icon: "code"
-  color: "black"
-
+description: "Enforce Protobuf style with protolint"
 inputs:
   configDirectory:
-    description: "the path to where the .protolint.yaml configuration exists"
+    description: "Path to .protolint.yaml"
     required: true
   srcDirectory:
-    description: "the path to where the .proto files are"
+    description: "Path to .proto files"
     required: false
     default: .
   protolintVersion:
-    description: "the version of protolint to use"
+    description: "Version of protolint"
     required: false
     default: "0.54.1"
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - protolint
-    - lint
-    - -config_dir_path
-    - ${{ inputs.configDirectory }}
-    - ${{ inputs.srcDirectory }}
-  env:
-    PROTOLINT_VERSION: ${{ inputs.protolintVersion }}
+  using: "composite"
+  steps:
+    - name: Download protolint
+      run: |
+        curl -sSL \
+          -o /tmp/protolint.tar.gz \
+          https://github.com/yoheimuta/protolint/releases/download/v${{ inputs.protolintVersion }}/protolint_${{ inputs.protolintVersion }}_linux_amd64.tar.gz
+        tar xzf /tmp/protolint.tar.gz -C /tmp
+        chmod +x /tmp/protolint
+    - name: Lint
+      run: |
+        /tmp/protolint lint \
+          --config_dir_path "${{ inputs.configDirectory }}" \
+          "${{ inputs.srcDirectory }}"
