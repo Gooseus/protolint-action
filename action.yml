@@ -28,3 +28,5 @@ runs:
     - -config_dir_path
     - ${{ inputs.configDirectory }}
     - ${{ inputs.srcDirectory }}
+  env:
+    PROTOLINT_VERSION: ${{ inputs.protolintVersion }}
